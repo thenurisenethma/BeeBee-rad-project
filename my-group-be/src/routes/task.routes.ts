@@ -12,7 +12,7 @@ router.get("/:userId", async (req: Request, res: Response) => {
   }
 })
 
-// Create task
+
 router.post("/", async (req: Request, res: Response) => {
   try {
     const { title, due, userId, assignedTo } = req.body;
@@ -27,7 +27,7 @@ router.post("/", async (req: Request, res: Response) => {
   }
 });
 
-// Update task
+
 router.put("/:id", async (req: Request, res: Response) => {
   try {
     const { title, due, status, assignedTo } = req.body;

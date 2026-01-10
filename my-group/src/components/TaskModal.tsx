@@ -18,7 +18,6 @@ export default function TaskModal({
   const [due, setDue] = useState("")
   const [assignedTo, setAssignedTo] = useState("")
 
-  // Sync modal state when editing
   useEffect(() => {
     if (editTask) {
       setTitle(editTask.title)
@@ -41,19 +40,16 @@ export default function TaskModal({
       return
     }
 
-    // Create a task object
     const task: Task = {
-      id: editTask?.id ?? "",  // Use empty string if adding a new task
+      id: editTask?.id ?? "",  
       title,
       due,
       status: editTask?.status || "Pending",
       assignedTo,
     }
 
-    // Await onSave in case it's async
     await onSave(task)
 
-    // Reset fields & close modal
     setTitle("")
     setDue("")
     setAssignedTo("")

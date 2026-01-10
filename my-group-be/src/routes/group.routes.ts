@@ -3,7 +3,6 @@ import Group from "../models/Group";
 
 const router = Router();
 
-// Get members of a group
 router.get("/:groupId/members", async (req, res) => {
   try {
     const group = await Group.findById(req.params.groupId)

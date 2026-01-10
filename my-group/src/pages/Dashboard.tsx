@@ -18,7 +18,6 @@ export default function Dashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editTask, setEditTask] = useState<Task | null>(null)
 
-  // 🔹 Fetch tasks
   useEffect(() => {
     if (!userId || !token) return
 
@@ -29,7 +28,6 @@ export default function Dashboard() {
         })
         const data = await res.json()
 
-        // Normalize _id to id
         const normalized: Task[] = data.map((t: any) => ({
           id: t._id,
           title: t.title,
@@ -47,11 +45,9 @@ export default function Dashboard() {
     fetchTasks()
   }, [userId, token])
 
-  //  Add / Update task
   const handleSaveTask = async (task: Task) => {
     if (!token || !userId) return
 
-    // ✅ UPDATE
     if (task.id) {
       try {
         const res = await fetch(`http://localhost:5000/api/tasks/${task.id}`, {
@@ -75,7 +71,6 @@ export default function Dashboard() {
           return
         }
 
-        // Update task in state
         setTasks(prev =>
           prev.map(t => (t.id === task.id ? { ...t, ...updated, id: updated._id } : t))
         )
@@ -115,12 +110,10 @@ export default function Dashboard() {
       }
     }
 
-    // Close modal
     setEditTask(null)
     setIsModalOpen(false)
   }
 
-  // 🔹 Delete task
   const handleDeleteTask = async (id?: string) => {
     if (!token || !id) return
 
