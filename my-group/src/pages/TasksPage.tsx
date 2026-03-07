@@ -10,7 +10,7 @@ export interface Task {
   assignedTo?: string
 }
 
-export default function Dashboard() {
+export default function TasksPage() {
   const userId = localStorage.getItem("userId")
   const token = localStorage.getItem("token")
 
@@ -158,34 +158,71 @@ export default function Dashboard() {
 
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Navbar />
+    <div className="min-h-screen bg-gradient-to-br from-stone-100 to-yellow-50">     
+   <Navbar />
 
       <div className="p-6 max-w-6xl mx-auto">
-        <div className="flex justify-between mb-6">
-          <h2 className="text-2xl font-semibold">Dashboard</h2>
-          <button
-            onClick={() => {
-              setEditTask(null)
-              setIsModalOpen(true)
-            }}
-            className="bg-yellow-400 px-4 py-2 rounded hover:bg-yellow-600"
-          >
-            + Add Task
-          </button>
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
+        <div>
+          <h2 className="text-3xl font-bold text-yellow-600">
+            Your Tasks
+          </h2>
+          <p className="text-sm text-gray-500">
+            Let BeeBee handle the details 🐝
+          </p>
         </div>
 
+        <button
+          onClick={() => {
+            setEditTask(null)
+            setIsModalOpen(true)
+          }}
+          className="
+            px-5 py-3 
+            rounded-xl 
+            bg-yellow-300 
+            text-black 
+            font-semibold 
+            transition-all 
+            duration-300 
+            hover:bg-black 
+            hover:text-yellow-300
+          "
+        >
+          + Add Task
+        </button>
+      </div>
+          {tasks.length === 0 && (
+            <div className="bg-white p-10 rounded-2xl shadow text-center">
+              <p className="text-gray-500 text-lg">
+                No tasks yet… BeeBee is waiting 🐝💛
+              </p>
+            </div>
+          )}
         <ul className="space-y-3 bg-white p-6 rounded-xl shadow">
           {tasks.map(task => (
             <li
               key={task.id}
-              className="flex justify-between bg-gray-50 p-3 rounded"
+              className="
+                flex flex-col md:flex-row 
+                md:justify-between 
+                md:items-center 
+                bg-white 
+                p-5 
+                rounded-2xl 
+                shadow-md 
+                hover:shadow-lg 
+                transition
+              "
             >
               <div>
-                <p className="font-medium">{task.title}</p>
-                <p className="text-sm text-gray-500">
-                  Due: {task.due} | {task.status}
-                  {task.assignedTo && ` | Assigned to: ${task.assignedTo}`}
+                <p className="font-semibold text-lg text-gray-800">
+                  {task.title}
+                </p>
+
+                <p className="text-sm text-gray-500 mt-1">
+                  Due: {task.due} • {task.status}
+                  {task.assignedTo && ` • Assigned to: ${task.assignedTo}`}
                 </p>
               </div>
               
@@ -193,8 +230,16 @@ export default function Dashboard() {
               {task.status !== "Completed" && (
                 <button
                   onClick={() => handleCompleteTask(task.id)}
-                className="px-4 py-2 bg-green-100 text-yellow-600 rounded-lg hover:bg-yellow-600 hover:text-white transition"
-                >
+                    className="
+                      px-4 py-2 
+                      rounded-xl 
+                      bg-green-100 
+                      text-green-600 
+                      font-medium
+                      hover:bg-black 
+                      hover:text-green-300 
+                      transition
+                    "                >
                   Complete
                 </button>
               )}
@@ -204,15 +249,31 @@ export default function Dashboard() {
                   setEditTask(task)
                   setIsModalOpen(true)
                 }}
-                className="px-4 py-2 bg-blue-100 text-yellow-600 rounded-lg hover:bg-yellow-600 hover:text-white transition"
-              >
+                  className="
+                    px-4 py-2 
+                    rounded-xl 
+                    bg-blue-200 
+                    text-blue-600 
+                    font-medium
+                    hover:bg-black 
+                    hover:text-blue-300 
+                    transition
+                  "              >
                 Edit
               </button>
 
               <button
                 onClick={() => handleDeleteTask(task.id)}
-                className="px-4 py-2 bg-red-100 text-yellow-600 rounded-lg hover:bg-yellow-600 hover:text-white transition"
-              >
+                  className="
+                    px-4 py-2 
+                    rounded-xl 
+                    bg-red-100 
+                    text-red-600 
+                    font-medium
+                    hover:bg-black
+                    hover:text-red-200 
+                    transition
+                  "              >
                 Delete
               </button>
             </div>

@@ -48,7 +48,7 @@ export default function SignUp() {
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full px-4 py-3 border rounded-lg"
+          className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
         />
 
         <input
@@ -56,7 +56,7 @@ export default function SignUp() {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full px-4 py-3 border rounded-lg"
+          className="w-full px-4 py-3 border rounded-lg invalid:border-pink-500 invalid:text-pink-600 focus:outline-none focus:ring-2 focus:ring-yellow-500"
         />
 
         <input
@@ -64,13 +64,25 @@ export default function SignUp() {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full px-4 py-3 border rounded-lg"
+
+          className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
         />
 
         <button
           type="submit"
-          className="w-full bg-yellow-300 py-3 rounded-lg font-semibold"
-        >
+                    
+          className="
+            w-full 
+            py-3 
+            rounded-xl 
+            bg-yellow-300 
+            text-black 
+            font-semibold 
+            transition-all 
+            duration-300 
+            hover:bg-black 
+            hover:text-yellow-300
+          "        >
           Sign Up
         </button>
 

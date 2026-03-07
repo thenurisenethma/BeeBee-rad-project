@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import type { Task } from "../pages/Dashboard"
+import type { Task } from "../pages/TasksPage"
 
 interface Props {
   isOpen: boolean
@@ -56,25 +56,58 @@ export default function TaskModal({
     setIsOpen(false)
   }
 
-  return (
-    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-xl w-96 space-y-4">
-        <h3 className="text-xl font-semibold">
-          {editTask ? "Edit Task" : "Add Task"}
-        </h3>
+ return (
+  <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 px-4">
+    
+    <div className="
+      w-full max-w-md 
+      bg-white 
+      rounded-3xl 
+      shadow-2xl 
+      p-8 
+      space-y-6 
+      relative
+      animate-[fadeIn_.2s_ease-in-out]
+    ">
+      
+      {/* Title */}
+      <h3 className="text-2xl font-bold text-gray-800 text-center">
+        {editTask ? "Edit Task 🐝" : "Add New Task ✨"}
+      </h3>
 
+      {/* Form */}
+      <form onSubmit={handleSubmit} className="space-y-4">
+        
         <input
           value={title}
           onChange={e => setTitle(e.target.value)}
           placeholder="Task title"
-          className="border p-2 w-full"
+          className="
+            w-full 
+            px-4 py-3 
+            rounded-xl 
+            border-2 border-yellow-200 
+            focus:outline-none 
+            focus:ring-2 
+            focus:ring-yellow-300 
+            transition
+          "
         />
 
         <input
           type="date"
           value={due}
           onChange={e => setDue(e.target.value)}
-          className="border p-2 w-full"
+          className="
+            w-full 
+            px-4 py-3 
+            rounded-xl 
+            border-2 border-yellow-200 
+            focus:outline-none 
+            focus:ring-2 
+            focus:ring-yellow-300 
+            transition
+          "
         />
 
         <input
@@ -82,26 +115,55 @@ export default function TaskModal({
           value={assignedTo}
           onChange={e => setAssignedTo(e.target.value)}
           placeholder="Assign to (optional)"
-          className="border p-2 w-full"
+          className="
+            w-full 
+            px-4 py-3 
+            rounded-xl 
+            border-2 border-yellow-200 
+            focus:outline-none 
+            focus:ring-2 
+            focus:ring-yellow-300 
+            transition
+          "
         />
 
-        <div className="flex justify-end gap-2">
+        {/* Buttons */}
+        <div className="flex justify-end gap-3 pt-2">
           <button
             type="button"
             onClick={() => setIsOpen(false)}
-            className="px-4 py-2 border rounded"
+            className="
+              px-5 py-2 
+              rounded-xl 
+              border 
+              border-gray-300 
+              text-gray-600 
+              hover:bg-gray-100 
+              transition
+            "
           >
             Cancel
           </button>
+
           <button
-            type="button"
-            onClick={handleSubmit}
-            className="bg-yellow-400 px-4 py-2 rounded"
+            type="submit"
+            className="
+              px-5 py-2 
+              rounded-xl 
+              bg-yellow-300 
+              text-black 
+              font-semibold 
+              transition-all 
+              duration-300 
+              hover:bg-black 
+              hover:text-yellow-300
+            "
           >
             Save
           </button>
         </div>
-      </div>
+      </form>
     </div>
-  )
+  </div>
+)
 }
