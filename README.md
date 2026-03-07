@@ -1,4 +1,4 @@
-# Project Title: MyGroup
+# Project Title: BeeBee
 
 ## Description
 A web application to manage tasks collaboratively within a team. Users can create, update, delete, and assign tasks to team members.
@@ -33,3 +33,4 @@ A web application to manage tasks collaboratively within a team. Users can creat
 
 ## Screenshots
 ![Screenshots](screenshots/)
+
