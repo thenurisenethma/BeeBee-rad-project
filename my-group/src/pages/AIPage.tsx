@@ -26,10 +26,10 @@ export default function AIPage() {
     Enter a big task and BeeBee will break it into smaller steps.
   </p>
 
-  <BeeBeeAssistant
-    userId={userId}
-    refreshTasks={refreshTasks}
-  />
+ <BeeBeeAssistant
+  userId={userId}
+  onAddTask={() => refreshTasks()}
+/>
 
 </div>
 

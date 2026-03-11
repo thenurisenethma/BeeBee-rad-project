@@ -1,61 +1,62 @@
 import { useState, useEffect } from "react"
 import Navbar from "../components/Navbar";
 import bee from "../assets/bee logo.png"
+import TaskModal from "../components/TaskModal"
 
-const TaskModal = ({ isOpen, setIsOpen, onSave, editTask }: any) => {
-  const [formData, setFormData] = useState({ title: "", due: "", status: "Pending", assignedTo: "" });
+// const TaskModal = ({ isOpen, setIsOpen, onSave, editTask }: any) => {
+//   const [formData, setFormData] = useState({ title: "", due: "", status: "Pending", assignedTo: "" });
 
-  useEffect(() => {
-    if (editTask) {
-      setFormData({ 
-        title: editTask.title, 
-        due: editTask.due, 
-        status: editTask.status, 
-        assignedTo: editTask.assignedTo || "" 
-      });
-    } else {
-      setFormData({ title: "", due: "", status: "Pending", assignedTo: "" });
-    }
-  }, [editTask, isOpen]);
+//   useEffect(() => {
+//     if (editTask) {
+//       setFormData({ 
+//         title: editTask.title, 
+//         due: editTask.due, 
+//         status: editTask.status, 
+//         assignedTo: editTask.assignedTo || "" 
+//       });
+//     } else {
+//       setFormData({ title: "", due: "", status: "Pending", assignedTo: "" });
+//     }
+//   }, [editTask, isOpen]);
 
-  if (!isOpen) return null;
+//   if (!isOpen) return null;
 
-  return (
-    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-  <div className="bg-white rounded-3xl shadow-xl w-full max-w-md p-8 animate-scaleIn">
-        <h3 className="text-xl font-bold mb-4">{editTask ? "Edit Task" : "Add New Task"}</h3>
-        <div className="space-y-4">
-         <input
-  type="text"
-  placeholder="Task Title"
-  className="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400"
-/>
+//   return (
+//     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+//   <div className="bg-white rounded-3xl shadow-xl w-full max-w-md p-8 animate-scaleIn">
+//         <h3 className="text-xl font-bold mb-4">{editTask ? "Edit Task" : "Add New Task"}</h3>
+//         <div className="space-y-4">
+//          <input
+//   type="text"
+//   placeholder="Task Title"
+//   className="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400"
+// />
 
-<input
-  type="date"
-  className="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400"
-/>
+// <input
+//   type="date"
+//   className="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400"
+// />
 
-<input
-  type="text"
-  placeholder="Assigned To"
-  className="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400"
-/>
+// <input
+//   type="text"
+//   placeholder="Assigned To"
+//   className="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400"
+// />
           
-        </div>
-        <div className="flex justify-end gap-2 mt-6">
-          <button onClick={() => setIsOpen(false)} className="px-4 py-2 text-gray-500">Cancel</button>
-          <button 
-            onClick={() => onSave({ ...editTask, ...formData })}
-            className="px-4 py-2 bg-yellow-400 rounded-lg font-bold"
-          >
-            Save Task
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
+//         </div>
+//         <div className="flex justify-end gap-2 mt-6">
+//           <button onClick={() => setIsOpen(false)} className="px-4 py-2 text-gray-500">Cancel</button>
+//           <button 
+//             onClick={() => onSave({ ...editTask, ...formData })}
+//             className="px-4 py-2 bg-yellow-400 rounded-lg font-bold"
+//           >
+//             Save Task
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
 
 // --- Main Page Component ---
 
@@ -71,9 +72,9 @@ export interface Task {
   due: string
   status: string
   assignedTo?: string
+  userId?: string
   subTasks?: SubTask[]
 }
-
 function TasksPage() {
   const userId = localStorage.getItem("userId")
   const token = localStorage.getItem("token")

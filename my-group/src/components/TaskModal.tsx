@@ -41,13 +41,14 @@ useEffect(() => {
       alert("Please fill all fields")
       return
     }
-
+    const userId = localStorage.getItem("userId") || ""
     const task: Task = {
-      id: editTask?.id ?? "",  
+      id: editTask?.id ?? "",
       title,
       due,
       status: editTask?.status || "Pending",
       assignedTo,
+      userId
     }
 
     await onSave(task)

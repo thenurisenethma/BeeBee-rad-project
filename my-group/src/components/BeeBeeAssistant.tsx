@@ -33,15 +33,16 @@ export default function BeeBeeAssistant({ userId, onAddTask }: Props) {
       // Assuming your API returns:
       // { id, title, due, status, assignedTo?, subTasks? }
       const newTask: Task = {
-        id: data._id || crypto.randomUUID(), // fallback if API doesn't return id
-        title: data.title,
-        due: data.due,
-        status: data.status || "Pending",
-        assignedTo: data.assignedTo || "",
-        subTasks: data.subTasks as SubTask[] || []
-      }
+      id: data._id,
+      title: data.title,
+      due: data.due,
+      status: data.status,
+      assignedTo: data.assignedTo || "",
+      subTasks: data.subTasks || [],
+    };
 
-      onAddTask(newTask) // add to parent tasks state
+    onAddTask(newTask);
+
       setTitle("")
       setDue("")
       alert("BeeBee created your task! 🐝")
