@@ -17,18 +17,20 @@ export default function TaskModal({
   const [title, setTitle] = useState("")
   const [due, setDue] = useState("")
   const [assignedTo, setAssignedTo] = useState("")
+  
+useEffect(() => {
+  if (!isOpen) return; // only populate if modal is open
 
-  useEffect(() => {
-    if (editTask) {
-      setTitle(editTask.title)
-      setDue(editTask.due)
-      setAssignedTo(editTask.assignedTo || "")
-    } else {
-      setTitle("")
-      setDue("")
-      setAssignedTo("")
-    }
-  }, [editTask])
+  if (editTask) {
+    setTitle(editTask.title)
+    setDue(editTask.due)
+    setAssignedTo(editTask.assignedTo || "")
+  } else {
+    setTitle("")
+    setDue("")
+    setAssignedTo("")
+  }
+}, [editTask, isOpen])
 
   if (!isOpen) return null
 
@@ -57,8 +59,7 @@ export default function TaskModal({
   }
 
  return (
-  <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 px-4">
-    
+<div className="fixed inset-0 bg-black/40 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-in fade-in duration-300">    
     <div className="
       w-full max-w-md 
       bg-white 

@@ -1,12 +1,15 @@
 import { useNavigate } from "react-router-dom"
 import bee from "../assets/bee logo.png"
+import { useState, useEffect } from "react"
+import beeQuote from "../assets/bee-quote.png" 
 
 export default function MainDashboard() {
   const navigate = useNavigate()
 
   const username = localStorage.getItem("username") || "Bee"
 
-  const tasks = JSON.parse(localStorage.getItem("tasks") || "[]")
+  const [tasks, setTasks] = useState<any[]>([])
+  const token = localStorage.getItem("token")
 
   const completedCount = tasks.filter(
     (task: any) => task.status === "Completed"
@@ -18,25 +21,81 @@ export default function MainDashboard() {
     totalCount === 0
       ? 0
       : Math.round((completedCount / totalCount) * 100)
+  const userId = localStorage.getItem("userId") || ""
+
+  const refreshTasks = () => {
+    window.location.reload()
+  }
+  
+useEffect(() => {
+  if (!token || !userId) return
+
+  const fetchTasks = async () => {
+    try {
+      const res = await fetch(`http://localhost:5000/api/tasks/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      const data = await res.json()
+
+      setTasks(data || [])
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  fetchTasks()
+}, [userId, token])
+
+const [hovered, setHovered] = useState(false)
 
   return (
     <div className="min-h-screen bg-white p-6 md:p-10">
 
       {/*Welcome  */}
-      <div className="bg-black rounded-3xl p-8 shadow-md relative overflow-hidden">
-        <h2 className="text-3xl font-bold text-yellow-600">
-          Hi {username} 
-        </h2>
-        <p className="text-yellow-200 mt-2">
-          Let’s make today productive and sweet ✨
-        </p>
-
-        <img
-          src={bee}
-          alt="bee"
-          className="absolute right-6 top-6 w-40 opacity-100"
-        />
+    <div
+      className={`
+        rounded-3xl p-8 shadow-md relative overflow-hidden cursor-pointer
+        transition-all duration-500
+        ${hovered ? "bg-slate-400" : "bg-black"}
+      `}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <div className="transition-colors duration-500">
+        {!hovered ? (
+          <>
+            <h2 className="text-3xl font-bold transition-colors duration-500 text-yellow-600">
+              Hi {username}
+            </h2>
+            <p className="text-yellow-200 mt-2 transition-colors duration-500">
+              Let’s make today productive and sweet ✨
+            </p>
+          </>
+        ) : (
+          <>
+            <h2 className="text-2xl italic font-bold transition-colors duration-500 text-black">
+              BeeBee’s Wisdom
+            </h2>
+            <p className="text-black mt-3 italic transition-colors duration-500">
+              "Small steps today build big achievements tomorrow."
+            </p>
+          </>
+        )}
       </div>
+
+      <img
+        src={hovered ? beeQuote : bee}
+        alt="bee"
+        className={`
+          absolute right-6 top-6 w-40 transition-transform duration-500
+          ${hovered ? "rotate-12 scale-110" : ""}
+        `}
+      />
+    </div>
+  
 
       {/* Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
@@ -76,24 +135,31 @@ export default function MainDashboard() {
       </div>
 
       {/* Progress Section */}
-      <div className="mt-12 bg-white rounded-3xl p-8 shadow-md">
-        <h3 className="text-xl font-semibold text-gray-800">
-          Today’s Progress
-        </h3>
+<div className="mt-12 bg-white rounded-3xl p-8 shadow-md">
+  <h3 className="text-xl font-semibold text-gray-800">
+    Today’s Progress
+  </h3>
 
-        <div className="mt-4">
-          <div className="h-3 bg-gray-200 rounded-full">
-            <div
-              className="h-3 bg-yellow-400 rounded-full transition-all duration-500"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
-
-          <p className="text-sm text-gray-500 mt-2">
-            {completedCount} of {totalCount} tasks completed 🎉
-          </p>
-        </div>
-      </div>
+  <div className="mt-4">
+    <div className="h-3 bg-gray-200 rounded-full">
+      <div
+        className="h-3 bg-green-500 rounded-full transition-all duration-500"
+        style={{ width: `${progress}%` }}
+      />
     </div>
+
+    <p className="text-sm text-gray-500 mt-2">
+      {completedCount} of {totalCount} tasks completed 🎉
+    </p>
+    {progress === 100 && (
+  <p className="text-green-600 font-semibold mt-2">
+     BeeBee is proud of you!
+  </p>
+)}
+  </div>
+</div>
+
+</div>
+
   )
 }

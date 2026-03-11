@@ -34,14 +34,14 @@ function App() {
           }
         />
 
-        {/* <Route
+        <Route
           path="/ai"
           element={
             <ProtectedRoute>
               <AIPage />
             </ProtectedRoute>
           }
-        /> */}
+        />
 
       </Routes>
     </BrowserRouter>
