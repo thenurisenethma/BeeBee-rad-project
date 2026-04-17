@@ -6,12 +6,9 @@ const router = express.Router();
 
 router.post("/break-task", async (req, res) => {
   try {
-    // We pull 'title' from the body. 
-    // If your frontend/postman sends 'task', we fallback to that.
     const title = req.body.title || req.body.task;
     const { due, userId, groupId, assignedTo } = req.body;
 
-    // Validation
     if (!title) {
       return res.status(400).json({ message: "Title or task description is required" });
     }

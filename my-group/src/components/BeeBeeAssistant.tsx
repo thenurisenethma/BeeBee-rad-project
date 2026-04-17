@@ -30,8 +30,6 @@ export default function BeeBeeAssistant({ userId, onAddTask }: Props) {
       const data = await res.json()
       if (!res.ok) throw new Error(data.message)
 
-      // Assuming your API returns:
-      // { id, title, due, status, assignedTo?, subTasks? }
       const newTask: Task = {
       id: data._id,
       title: data.title,
